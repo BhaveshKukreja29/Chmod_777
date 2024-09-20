@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSEC Smart Campus Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.5.1/dist/framer-motion.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Smart Campus Dashboard</h1>
+        <nav class="mt-4">
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/events" class="text-blue-200 hover:text-blue-100 transition-colors">Events</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section id="events" class="bg-blue-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-blue-100 mb-4">Upcoming Events</h2>
+            <ul class="space-y-4" id="events-list"></ul>
+        </section>
+        <section id="announcements" class="bg-blue-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-blue-100 mb-4">Announcements</h2>
+            <ul class="space-y-4" id="announcements-list"></ul>
+        </section>
+        <section id="transport" class="bg-blue-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-blue-100 mb-4">Campus Transport</h2>
+            <ul class="space-y-4" id="bus-locations-list"></ul>
+        </section>
+        <section id="cafeteria" class="bg-blue-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-blue-100 mb-4">Today's Cafeteria Menu</h2>
+            <ul class="space-y-4" id="cafeteria-menu-list"></ul>
+        </section>
+        <section id="quick-access" class="bg-blue-800 p-6 rounded-lg shadow-lg md:col-span-2">
+            <h2 class="text-2xl font-semibold text-blue-100 mb-4">Quick Access</h2>
+            <div id="quick-access-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"></div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Simulated API data
+        const events = [
+            { id: 1, title: 'Tech Fest 2023', date: '2023-09-15', description: 'Annual technology festival' },
+            { id: 2, title: 'Career Fair', date: '2023-10-01', description: 'Meet top employers' },
+        ];
+
+        const announcements = [
+            { id: 1, title: 'New Library Hours', content: 'Library will now be open 24/7' },
+            { id: 2, title: 'Campus Wi-Fi Upgrade', content: 'Faster internet coming next week' },
+        ];
+
+        const busLocations = [
+            { id: 1, name: 'Bus 1', location: 'Main Gate' },
+            { id: 2, name: 'Bus 2', location: 'Engineering Block' },
+        ];
+
+        const cafeteriaMenu = [
+            { id: 1, item: 'Vegetable Stir Fry', calories: 250, price: 5 },
+            { id: 2, item: 'Grilled Chicken Sandwich', calories: 400, price: 7 },
+        ];
+
+        const quickAccessItems = [
+            { icon: 'book', title: "Library", link: "#" },
+            { icon: 'bus', title: "Transport", link: "#" },
+            { icon: 'coffee', title: "Cafeteria", link: "#" },
+            { icon: 'bell', title: "Notifications", link: "#" },
+            { icon: 'calendar', title: "Class Schedule", link: "#" },
+            { icon: 'flask', title: "Lab Equipment", link: "#" },
+        ];
+
+        // Render functions
+        function renderEvents() {
+            const eventsList = document.getElementById('events-list');
+            events.forEach(event => {
+                const li = document.createElement('li');
+                li.className = 'border-b border-blue-700 pb-2';
+                li.innerHTML = `
+                    <h3 class="font-semibold text-blue-200">${event.title}</h3>
+                    <p class="text-sm text-blue-300">${event.date}</p>
+                    <p class="text-blue-200">${event.description}</p>
+                `;
+                eventsList.appendChild(li);
+            });
+        }
+
+        function renderAnnouncements() {
+            const announcementsList = document.getElementById('announcements-list');
+            announcements.forEach(announcement => {
+                const li = document.createElement('li');
+                li.className = 'border-b border-blue-700 pb-2';
+                li.innerHTML = `
+                    <h3 class="font-semibold text-blue-200">${announcement.title}</h3>
+                    <p class="text-blue-200">${announcement.content}</p>
+                `;
+                announcementsList.appendChild(li);
+            });
+        }
+
+        function renderBusLocations() {
+            const busLocationsList = document.getElementById('bus-locations-list');
+            busLocations.forEach(bus => {
+                const li = document.createElement('li');
+                li.className = 'flex items-center';
+                li.innerHTML = `
+                    <i data-lucide="bus" class="w-6 h-6 text-blue-300 mr-2"></i>
+                    <span class="text-blue-200">${bus.name}: ${bus.location}</span>
+                `;
+                busLocationsList.appendChild(li);
+            });
+        }
+
+        function renderCafeteriaMenu() {
+            const cafeteriaMenuList = document.getElementById('cafeteria-menu-list');
+            cafeteriaMenu.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'flex justify-between items-center';
+                li.innerHTML = `
+                    <span class="text-blue-200">${item.item}</span>
+                    <span class="text-sm text-blue-300">${item.calories} cal | $${item.price}</span>
+                `;
+                cafeteriaMenuList.appendChild(li);
+            });
+        }
+
+        function renderQuickAccess() {
+            const quickAccessGrid = document.getElementById('quick-access-grid');
+            quickAccessItems.forEach(item => {
+                const a = document.createElement('a');
+                a.href = item.link;
+                a.className = 'flex flex-col items-center justify-center p-4 bg-blue-700 rounded-lg';
+                a.innerHTML = `
+                    <i data-lucide="${item.icon}" class="w-8 h-8 text-blue-300 mb-2"></i>
+                    <span class="text-blue-100 font-medium text-center">${item.title}</span>
+                `;
+                quickAccessGrid.appendChild(a);
+            });
+        }
+
+        // Render all sections
+        renderEvents();
+        renderAnnouncements();
+        renderBusLocations();
+        renderCafeteriaMenu();
+        renderQuickAccess();
+
+        // Re-initialize Lucide icons after adding new elements
+        lucide.createIcons();
+
+        // Animations
+        const sections = [
+            { id: 'events', x: -20 },
+            { id: 'announcements', x: 20, delay: 0.2 },
+            { id: 'transport', y: 20, delay: 0.4 },
+            { id: 'cafeteria', y: 20, delay: 0.6 },
+            { id: 'quick-access', y: 20, delay: 0.8 },
+        ];
+
+        sections.forEach(section => {
+            const element = document.getElementById(section.id);
+            motion.animate(element, 
+                { opacity: [0, 1], x: [section.x || 0, 0], y: [section.y || 0, 0] },
+                { duration: 0.5, delay: section.delay || 0 }
+            );
+        });
+
+        // Quick access hover animations
+        document.querySelectorAll('#quick-access-grid > a').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                motion.animate(item, { scale: 1.05 }, { duration: 0.2 });
+            });
+            item.addEventListener('mouseleave', () => {
+                motion.animate(item, { scale: 1 }, { duration: 0.2 });
+            });
+            item.addEventListener('mousedown', () => {
+                motion.animate(item, { scale: 0.95 }, { duration: 0.1 });
+            });
+            item.addEventListener('mouseup', () => {
+                motion.animate(item, { scale: 1.05 }, { duration: 0.1 });
+            });
+        });
+    </script>
+</body>
+</html>
