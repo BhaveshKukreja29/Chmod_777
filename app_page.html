@@ -8,6 +8,31 @@
     <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.5.1/dist/framer-motion.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
     <style>
+        .tsec{
+          display: flex;
+          justify-content: center;
+          margin: 0px;
+          margin-top: 3rem;
+          width: 100%;
+          border-radius: 15px;
+        }
+        .feat {
+            transition: transform 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+          }
+
+          .feat:hover {
+            animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+            transform: scale(1.1); /* adjust the scale factor as needed */
+          }
+
+          @keyframes scale-up-center {
+            0% {
+              transform: scale(1);
+            }
+            100% {
+              transform: scale(1.1); /* adjust the scale factor as needed */
+            }
+          }
         .bg-gradient-to-br {
             background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
         }
@@ -42,17 +67,15 @@
             <ul class="flex space-x-4">
                 <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
                 <li><a href="/events.html" class="text-blue-200 hover:text-blue-100 transition-colors">Events</a></li>
-                <li><a href="/Login.html" class="text-blue-200 hover:text-blue-100 transition-colors">Login</a></li>
+                <li><a href="/login.html" class="text-blue-200 hover:text-blue-100 transition-colors">Login</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="image-scroll-container overflow-hidden relative h-64 mb-12">
-        <div class="image-scroll-wrapper flex transition-transform duration-50000 ease-linear">
-            <!-- Images will be added here dynamically -->
-        </div>
-    </section>
-
+    <div class="tsec">
+      <img src="WhatsApp Image 2024-09-20 at 11.51.20 AM.jpeg" width="500wv" class="rounded-lg">
+    </div>
+    
     <main class="container mx-auto px-6 py-12">
         <div id="hero" class="text-center">
             <h2 class="text-5xl font-bold text-blue-100 mb-6">Welcome to TSEC Smart Campus</h2>
@@ -103,7 +126,7 @@
                 icon: 'bell', 
                 title: "Announcements", 
                 description: "Stay updated with important campus news, event notifications, and emergency alerts. Customize your notification preferences for different departments and activities.",
-                href: "/announcements.html"
+                href: "/notifications.html"
             },
             { 
                 icon: 'calendar', 
@@ -135,7 +158,7 @@
         const featuresContainer = document.getElementById('features');
         features.forEach((feature, index) => {
             const card = document.createElement('div');
-            card.className = 'bg-blue-800 p-6 rounded-lg shadow-lg';
+            card.className = 'feat bg-blue-800 p-6 rounded-lg shadow-lg';
             card.innerHTML = `
                 <a href="${feature.href}" class="block h-full">
                     <i data-lucide="${feature.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
