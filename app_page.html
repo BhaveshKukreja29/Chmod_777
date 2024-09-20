@@ -1,142 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TSEC Smart Campus</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.5.1/dist/framer-motion.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
     <style>
-      .feat {
-        transition: transform 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
-      }
-
-      .feat:hover {
-        animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-        transform: scale(1.1);
-      }
-
-      @keyframes scale-up-center {
-        0% {
-          transform: scale(1);
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
         }
-        100% {
-          transform: scale(1.1);
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
         }
-      }
-
-      .bg-gradient-to-br {
-        background-image: linear-gradient(to bottom right, #172a45, #172a45);
-      }
-
-      .backdrop-blur-md {
-        backdrop-filter: blur(12px);
-      }
-
-      /* Custom text color */
-      .text-custom {
-        color: #3dc2ee;
-      }
+        .image-scroll-wrapper {
+            width: 400%; /* Adjust based on the number of images */
+        }
+        .image-scroll-wrapper img {
+            width: 25%; /* 100% / 4 images */
+            height: 100%;
+            object-fit: cover;
+        }
+        @keyframes scrollRight {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        .animate-scroll {
+            animation: scrollRight 30s linear infinite;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br text-white">
     <header class="p-6 flex justify-between items-center bg-blue-800 bg-opacity-80 backdrop-blur-md">
-      <h1 class="text-3xl font-bold text-custom">TSEC Smart Campus</h1>
-      <nav>
-        <ul class="flex space-x-4">
-          <li>
-            <a href="/dashboard" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a>
-          </li>
-          <li>
-            <a href="/events" class="text-blue-200 hover:text-blue-100 transition-colors">Events</a>
-          </li>
-        </ul>
-      </nav>
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Smart Campus</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+                <li><a href="/events.html" class="text-blue-200 hover:text-blue-100 transition-colors">Events</a></li>
+                <li><a href="/Login.html" class="text-blue-200 hover:text-blue-100 transition-colors">Login</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <section class="image-scroll-container overflow-hidden relative h-64 mb-12">
+        <div class="image-scroll-wrapper flex transition-transform duration-50000 ease-linear">
+            <!-- Images will be added here dynamically -->
+        </div>
+    </section>
+
     <main class="container mx-auto px-6 py-12">
-      <div id="hero" class="text-center">
-        <h2 class="text-5xl font-bold text-custom mb-6">Welcome to TSEC Smart Campus</h2>
-        <p class="text-xl text-custom mb-12">Your one-stop solution for campus information and resources</p>
-      </div>
-      <div id="features" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Feature cards will be dynamically added here -->
-      </div>
-      <div id="cta" class="mt-12 text-center">
-        <a
-          href="/dashboard"
-          class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors"
-        >
-          Explore Dashboard
-          <i data-lucide="arrow-right" class="ml-2"></i>
-        </a>
-      </div>
+        <div id="hero" class="text-center">
+            <h2 class="text-5xl font-bold text-blue-100 mb-6">Welcome to TSEC Smart Campus</h2>
+            <p class="text-xl text-blue-200 mb-12">Your one-stop solution for campus information and resources</p>
+        </div>
+        <div id="features" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Feature cards will be dynamically added here -->
+        </div>
+        <div id="cta" class="mt-12 text-center">
+            <a href="/dashboard.html" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors">
+                Explore Dashboard
+                <i data-lucide="arrow-right" class="ml-2"></i>
+            </a>
+        </div>
     </main>
 
     <script>
-      // Initialize Lucide icons
-      lucide.createIcons();
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-      // Feature data
-      const features = [
-        { icon: "book-open", title: "Library Resources", description: "Check availability of books and resources", href: "/library.html" },
-        { icon: "bus", title: "Campus Transport", description: "Track live bus locations and schedules", href: "/bus-map.html" },
-        { icon: "coffee", title: "Cafeteria Menu", description: "View daily menus and nutritional information", href: "/cafeteria.html" },
-        { icon: "flask", title: "Lab Equipment", description: "Check availability of lab equipment", href: "/lab-equipment.html" },
-        { icon: "bell", title: "Announcements", description: "Stay updated with important campus news", href: "/events.html" },
-        { icon: "calendar", title: "Class Schedules", description: "View and manage your class timetable", href: "/class-schedule.html" },
-      ];
+        // Feature data
+        const features = [
+            { 
+                icon: 'book-open', 
+                title: "Library Resources", 
+                description: "Access our extensive digital library, reserve study rooms, and check availability of physical books. Get notifications for due dates and new arrivals in your favorite genres.",
+                href: "/library.html"
+            },
+            { 
+                icon: 'bus', 
+                title: "Campus Transport", 
+                description: "Track real-time locations of campus shuttles, view schedules, and get estimated arrival times. Plan your route efficiently and never miss a class due to transportation issues.",
+                href: "/bus-map.html"
+            },
+            { 
+                icon: 'coffee', 
+                title: "Cafeteria Menu", 
+                description: "Browse daily menus, nutritional information, and special dietary options. Pre-order your meals, provide feedback, and suggest new items for the menu.",
+                href: "/cafeteria.html"
+            },
+            { 
+                icon: 'computer', 
+                title: "Lab Equipment", 
+                description: "Check availability and book lab equipment in advance. Access user manuals, safety guidelines, and schedule maintenance requests for a seamless lab experience.",
+                href: "/lab-equipment.html"
+            },
+            { 
+                icon: 'bell', 
+                title: "Announcements", 
+                description: "Stay updated with important campus news, event notifications, and emergency alerts. Customize your notification preferences for different departments and activities.",
+                href: "/announcements.html"
+            },
+            { 
+                icon: 'calendar', 
+                title: "Class Schedules", 
+                description: "View and manage your class timetable, set reminders for assignments, and sync with your personal calendar. Easily check professor office hours and schedule appointments.",
+                href: "/class-schedule.html"
+            },
+            {
+                icon: 'users',
+                title: "Student Clubs",
+                description: "Explore various student clubs, join discussions, and participate in events. Create and manage your own club activities, and connect with like-minded peers.",
+                href: "/student-clubs.html"
+            },
+            {
+                icon: 'clipboard-list',
+                title: "Campus Jobs",
+                description: "Browse and apply for on-campus job opportunities, internships, and research positions. Track your applications and receive interview notifications directly through the app.",
+                href: "/campus-jobs.html"
+            },
+            {
+                icon: 'map-pin',
+                title: "Campus Navigation",
+                description: "Use our interactive map to navigate the campus easily. Find the shortest routes to your classes, locate facilities, and discover new study spots around the campus.",
+                href: "/navigation.html"
+            }
+        ];
 
-      // Render feature cards
-      const featuresContainer = document.getElementById('features');
-      features.forEach((feature) => {
-          const card = document.createElement('a');
-          card.href = feature.href;
-          card.className = 'feat bg-blue-800 p-6 rounded-lg shadow-lg block hover:bg-blue-700 transition-colors';
-          card.innerHTML = `
-              <i data-lucide="${feature.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
-              <h3 class="text-xl font-semibold text-custom mb-2">${feature.title}</h3>
-              <p class="text-custom">${feature.description}</p>
-          `;
-          featuresContainer.appendChild(card);
-      });
-
-      // Animate elements
-      const hero = document.getElementById("hero");
-      const featuresElement = document.getElementById("features");
-      const cta = document.getElementById("cta");
-
-      const fadeInUp = {
-        opacity: [0, 1],
-        y: [20, 0],
-      };
-
-      const fadeIn = {
-        opacity: [0, 1],
-      };
-
-      motion.animate(hero, fadeInUp, { duration: 0.8 });
-      motion.animate(featuresElement, fadeIn, { delay: 0.5, duration: 0.8 });
-      motion.animate(cta, fadeIn, { delay: 1, duration: 0.8 });
-
-      // Add hover and tap animations to feature cards
-      document.querySelectorAll("#features > a").forEach((card) => {
-        card.addEventListener("mouseenter", () => {
-          motion.animate(card, { scale: 1.05 }, { duration: 0.2 });
+        // Render feature cards
+        const featuresContainer = document.getElementById('features');
+        features.forEach((feature, index) => {
+            const card = document.createElement('div');
+            card.className = 'bg-blue-800 p-6 rounded-lg shadow-lg';
+            card.innerHTML = `
+                <a href="${feature.href}" class="block h-full">
+                    <i data-lucide="${feature.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-blue-100 mb-2">${feature.title}</h3>
+                    <p class="text-blue-200">${feature.description}</p>
+                </a>
+            `;
+            featuresContainer.appendChild(card);
+            lucide.createIcons();
         });
-        card.addEventListener("mouseleave", () => {
-          motion.animate(card, { scale: 1 }, { duration: 0.2 });
+
+        // Animate elements
+        const hero = document.getElementById('hero');
+        const featuresElement = document.getElementById('features');
+        const cta = document.getElementById('cta');
+
+        const fadeInUp = {
+            opacity: [0, 1],
+            y: [20, 0],
+        };
+
+        const fadeIn = {
+            opacity: [0, 1],
+        };
+
+        motion.animate(hero, fadeInUp, { duration: 0.8 });
+        motion.animate(featuresElement, fadeIn, { delay: 0.5, duration: 0.8 });
+        motion.animate(cta, fadeIn, { delay: 1, duration: 0.8 });
+
+        // Add hover and tap animations to feature cards
+        document.querySelectorAll('#features > div').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                motion.animate(card, { scale: 1.05 }, { duration: 0.2 });
+            });
+            card.addEventListener('mouseleave', () => {
+                motion.animate(card, { scale: 1 }, { duration: 0.2 });
+            });
+            card.addEventListener('mousedown', () => {
+                motion.animate(card, { scale: 0.95 }, { duration: 0.1 });
+            });
+            card.addEventListener('mouseup', () => {
+                motion.animate(card, { scale: 1.05 }, { duration: 0.1 });
+            });
         });
-        card.addEventListener("mousedown", () => {
-          motion.animate(card, { scale: 0.95 }, { duration: 0.1 });
+
+        // Add scrolling images
+        const imageUrls = [
+            'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+            'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+            'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+            'https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1486&q=80',
+            'https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+            'https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80',
+            'https://images.unsplash.com/photo-1592280771190-3e2e4d571952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+            'https://images.unsplash.com/photo-1607013407627-6ee814329547?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1564&q=80'
+        ];
+
+        const imageScrollWrapper = document.querySelector('.image-scroll-wrapper');
+
+        imageUrls.forEach(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = 'Campus Image';
+            img.className = 'inline-block';
+            imageScrollWrapper.appendChild(img);
         });
-        card.addEventListener("mouseup", () => {
-          motion.animate(card, { scale: 1.05 }, { duration: 0.1 });
+
+        // Clone the images to create a seamless loop
+        const imageNodes = imageScrollWrapper.querySelectorAll('img');
+        imageNodes.forEach(img => {
+            const clone = img.cloneNode(true);
+            imageScrollWrapper.appendChild(clone);
         });
-      });
+
+        // Start the animation
+        imageScrollWrapper.classList.add('animate-scroll');
     </script>
 </body>
 </html>
