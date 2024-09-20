@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSEC Smart Campus Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a192f;
+            color: #e6f1ff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #64ffda;
+        }
+        #map {
+            height: 400px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #172a45;
+        }
+        th {
+            background-color: #172a45;
+            color: #64ffda;
+        }
+        tr:nth-child(even) {
+            background-color: #0e2240;
+        }
+        tr:nth-child(odd) {
+            background-color: #0c1e3a;
+        }
+        a {
+            color: #64ffda;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .college-logo {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="mb-8 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <img src="data:image/jpeg;base64,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" alt="TSEC Logo" class="college-logo">
+            <h1 class="text-3xl font-bold text-blue-100">TSEC Campus Transport</h1>
+        </div>
+        <nav class="ml-8">
+            <ul class="flex space-x-4">
+                <li class="pr-4"><a href="/app_page.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li class="pr-4"><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+            </ul>
+        </nav>      
+    </header>
+    <div class="container">
+        <div class="dashboard-header">
+        </div>
+        <div id="map"></div>
+        <h2>Campus Shuttle Schedule</h2>
+        <table id="busSchedule">
+            <thead>
+                <tr>
+                    <th>Route</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
+                    <th>Track</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Bus schedule will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Initialize the map
+        var tsecLocation = [19.0715, 72.8384]; // TSEC coordinates
+        var map = L.map('map').setView(tsecLocation, 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add TSEC marker
+        var tsecMarker = L.marker(tsecLocation).addTo(map);
+        tsecMarker.bindPopup("<b>Thadomal Shahani Engineering College</b><br>Bandra, Mumbai").openPopup();
+
+        // Campus shuttle schedule data
+        var busSchedule = [
+            { route: "Main Gate to Academic Block", departure: "08:00 AM", arrival: "08:10 AM", trackLink: "https://tsec.edu/track/main-gate-academic" },
+            { route: "Hostel to Library", departure: "09:30 AM", arrival: "09:40 AM", trackLink: "https://tsec.edu/track/hostel-library" },
+            { route: "Sports Complex to Canteen", departure: "12:00 PM", arrival: "12:10 PM", trackLink: "https://tsec.edu/track/sports-canteen" },
+            { route: "Academic Block to Main Gate", departure: "04:00 PM", arrival: "04:10 PM", trackLink: "https://tsec.edu/track/academic-main-gate" },
+            { route: "Library to Hostel", departure: "06:00 PM", arrival: "06:10 PM", trackLink: "https://tsec.edu/track/library-hostel" }
+        ];
+
+        // Populate the bus schedule table
+        var tableBody = document.querySelector("#busSchedule tbody");
+        busSchedule.forEach(function(bus) {
+            var row = tableBody.insertRow();
+            row.insertCell(0).textContent = bus.route;
+            row.insertCell(1).textContent = bus.departure;
+            row.insertCell(2).textContent = bus.arrival;
+            var linkCell = row.insertCell(3);
+            var link = document.createElement('a');
+            link.href = bus.trackLink;
+            link.textContent = "Live Track";
+            link.target = "_blank";
+            linkCell.appendChild(link);
+        });
+    </script>
+</body>
+</html>

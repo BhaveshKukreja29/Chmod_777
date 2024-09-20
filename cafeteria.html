@@ -1,62 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TSEC Cafeteria</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
     <style>
-        .bg-gradient-to-br {
-            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      .feat {
+        transition: transform 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+      }
+
+      .feat:hover {
+        animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+        transform: scale(1.1); /* adjust the scale factor as needed */
+      }
+
+      @keyframes scale-up-center {
+        0% {
+          transform: scale(1);
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+        100% {
+          transform: scale(1.1); /* adjust the scale factor as needed */
         }
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      }
+
+      .bg-gradient-to-br {
+        background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .fade-in.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
     </style>
-</head>
-<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+  </head>
+  <body class="min-h-screen bg-gradient-to-br p-6 text-white">
     <header class="mb-8">
-        <h1 class="text-3xl font-bold text-blue-100">TSEC Cafeteria</h1>
-        <nav class="mt-4">
-            <ul class="flex space-x-4">
-                <li><a href="/" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
-                <li><a href="/dashboard" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
-            </ul>
-        </nav>
+      <h1 class="text-3xl font-bold text-blue-100">TSEC Cafeteria</h1>
+      <nav class="mt-4">
+        <ul class="flex space-x-4">
+          <li>
+            <a
+              href="/"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="/dashboard"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Dashboard</a
+            >
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <h2 class="text-2xl font-semibold text-blue-100 mb-6 fade-in">Today's Menu</h2>
-        <div id="menu-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <!-- Menu items will be dynamically added here -->
-        </div>
+      <h2 class="text-2xl font-semibold text-blue-100 mb-6 fade-in">
+        Today's Menu
+      </h2>
+      <div id="menu-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Menu items will be dynamically added here -->
+      </div>
     </main>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+      // Initialize Lucide icons
+      lucide.createIcons();
 
-        // Simulated API data
-        const menu = [
-            { id: 1, name: 'Vegetable Stir Fry', type: 'Main Course', price: 5, calories: 250 },
-            { id: 2, name: 'Grilled Chicken Sandwich', type: 'Sandwich', price: 7, calories: 400 },
-            { id: 3, name: 'Caesar Salad', type: 'Salad', price: 6, calories: 200 },
-            { id: 4, name: 'Fruit Smoothie', type: 'Beverage', price: 4, calories: 150 },
-        ];
+      // Simulated API data
+      const menu = [
+        {
+          id: 1,
+          name: "Vegetable Stir Fry",
+          type: "Main Course",
+          price: 5,
+          calories: 250,
+        },
+        {
+          id: 2,
+          name: "Grilled Chicken Sandwich",
+          type: "Sandwich",
+          price: 7,
+          calories: 400,
+        },
+        { id: 3, name: "Caesar Salad", type: "Salad", price: 6, calories: 200 },
+        {
+          id: 4,
+          name: "Fruit Smoothie",
+          type: "Beverage",
+          price: 4,
+          calories: 150,
+        },
+      ];
 
-        const menuContainer = document.getElementById('menu-container');
+      const menuContainer = document.getElementById("menu-container");
 
-        function renderMenu() {
-            menu.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-blue-800 p-6 rounded-lg shadow-lg fade-in';
-                div.innerHTML = `
+      function renderMenu() {
+        menu.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "feat bg-blue-800 p-6 rounded-lg shadow-lg fade-in";
+          div.innerHTML = `
                     <h3 class="text-xl font-semibold text-blue-100 mb-2">${item.name}</h3>
                     <p class="text-blue-200 mb-4">${item.type}</p>
                     <div class="flex items-center justify-between text-blue-300">
@@ -67,31 +120,31 @@
                         <span>${item.calories} cal</span>
                     </div>
                 `;
-                menuContainer.appendChild(div);
-                
-                // Trigger reflow to enable transition
-                void div.offsetWidth;
-                div.classList.add('active');
+          menuContainer.appendChild(div);
 
-                // Re-initialize Lucide icons
-                lucide.createIcons();
-            });
-        }
+          // Trigger reflow to enable transition
+          void div.offsetWidth;
+          div.classList.add("active");
 
-        // Render menu items
-        renderMenu();
-
-        // Activate initial fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.classList.add('active');
+          // Re-initialize Lucide icons
+          lucide.createIcons();
         });
+      }
 
-        // Simulate delay for menu items
-        menuContainer.childNodes.forEach((child, index) => {
-            setTimeout(() => {
-                child.classList.add('active');
-            }, index * 100);
-        });
+      // Render menu items
+      renderMenu();
+
+      // Activate initial fade-in elements
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        el.classList.add("active");
+      });
+
+      // Simulate delay for menu items
+      menuContainer.childNodes.forEach((child, index) => {
+        setTimeout(() => {
+          child.classList.add("active");
+        }, index * 100);
+      });
     </script>
-</body>
+  </body>
 </html>

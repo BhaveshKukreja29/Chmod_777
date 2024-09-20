@@ -2,7 +2,7 @@
 
 :root{
     --white: #fff;
-    --black: #000; 
+    --black: #172a45; 
     --lightBulue: #17a;
 }
 
@@ -140,7 +140,7 @@ form button{
 }
 
 form button:hover{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px #172a45;
 }
 
 form .linkTxt{
@@ -232,11 +232,11 @@ form .linkTxt{
     right: 0;
     width: 850px;
     height: 600px;
-    background: #000;
+    background: #172a45;
     transform: rotate(10deg) skewY(40deg);
     transform-origin: bottom right;
-    transition: 1.5s ease;
-    transition-delay: 1.6s;
+    transition: 1s ease;
+    transition-delay: 1.1s;
 }
 
 .wrapper.active .rotate-bg{
