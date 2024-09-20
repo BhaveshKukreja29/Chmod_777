@@ -11,6 +11,23 @@
         .bg-gradient-to-br {
             background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
         }
+        .feat {
+            transition: transform 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+          }
+
+          .feat:hover {
+            animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+            transform: scale(1.1); /* adjust the scale factor as needed */
+          }
+
+          @keyframes scale-up-center {
+            0% {
+              transform: scale(1);
+            }
+            100% {
+              transform: scale(1.1); /* adjust the scale factor as needed */
+            }
+          }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br p-6 text-white">
@@ -139,7 +156,7 @@
             quickAccessItems.forEach(item => {
                 const a = document.createElement('a');
                 a.href = item.link;
-                a.className = 'flex flex-col items-center justify-center p-4 bg-blue-700 rounded-lg';
+                a.className = 'feat flex flex-col items-center justify-center p-4 bg-blue-700 rounded-lg';
                 a.innerHTML = `
                     <i data-lucide="${item.icon}" class="w-8 h-8 text-blue-300 mb-2"></i>
                     <span class="text-blue-100 font-medium text-center">${item.title}</span>
