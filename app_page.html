@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TSEC Smart Campus</title>
@@ -17,7 +18,8 @@
 
       .feat:hover {
         animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-        transform: scale(1.1); /* adjust the scale factor as needed */
+        transform: scale(1.1);
+        transform: scale(1.1);
       }
 
       @keyframes scale-up-center {
@@ -25,15 +27,29 @@
           transform: scale(1);
         }
         100% {
-          transform: scale(1.1); /* adjust the scale factor as needed */
+          transform: scale(1.1);
+          transform: scale(1.1);
         }
       }
 
       .bg-gradient-to-br {
-        background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        background-image: linear-gradient(to bottom right, #172a45, #172a45);
+        background-image: linear-gradient(to bottom right, #172a45, #172a45);
       }
+
+
       .backdrop-blur-md {
         backdrop-filter: blur(12px);
+      }
+
+      /* Custom text color */
+      .text-custom {
+        color: #3dc2ee;
+      }
+
+      /* Custom text color */
+      .text-custom {
+        color: #3dc2ee;
       }
     </style>
   </head>
@@ -41,7 +57,7 @@
     <header
       class="p-6 flex justify-between items-center bg-blue-800 bg-opacity-80 backdrop-blur-md"
     >
-      <h1 class="text-3xl font-bold text-blue-100">TSEC Smart Campus</h1>
+      <h1 class="text-3xl font-bold text-custom">TSEC Smart Campus</h1>
       <nav>
         <ul class="flex space-x-4">
           <li>
@@ -63,17 +79,13 @@
     </header>
     <main class="container mx-auto px-6 py-12">
       <div id="hero" class="text-center">
-        <h2 class="text-5xl font-bold text-blue-100 mb-6">
-          Welcome to TSEC Smart Campus
-        </h2>
-        <p class="text-xl text-blue-200 mb-12">
-          Your one-stop solution for campus information and resources
-        </p>
+        <h2 class="text-5xl font-bold text-custom mb-6">Welcome to TSEC Smart Campus</h2>
+        <p class="text-xl text-custom mb-12">Your one-stop solution for campus information and resources</p>
+        <h2 class="text-5xl font-bold text-custom mb-6">Welcome to TSEC Smart Campus</h2>
+        <p class="text-xl text-custom mb-12">Your one-stop solution for campus information and resources</p>
       </div>
-      <div
-        id="features"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      >
+      <div id="features" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="features" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Feature cards will be dynamically added here -->
       </div>
       <div id="cta" class="mt-12 text-center">
@@ -126,17 +138,31 @@
       ];
 
       // Render feature cards
-      const featuresContainer = document.getElementById("features");
+      const featuresContainer = document.getElementById('features');
       features.forEach((feature, index) => {
-        const card = document.createElement("div");
-        card.className = "feat bg-blue-800 p-6 rounded-lg shadow-lg";
-        card.innerHTML = `
-                <i data-lucide="${feature.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
-                <h3 class="text-xl font-semibold text-blue-100 mb-2">${feature.title}</h3>
-                <p class="text-blue-200">${feature.description}</p>
-            `;
-        featuresContainer.appendChild(card);
-        lucide.createIcons();
+          const card = document.createElement('a');
+          card.href = feature.href;
+          card.className = 'feat bg-blue-800 p-6 rounded-lg shadow-lg block hover:bg-blue-700 transition-colors';
+          card.innerHTML = `
+              <i data-lucide="${feature.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
+              <h3 class="text-xl font-semibold text-custom mb-2">${feature.title}</h3>
+              <p class="text-custom">${feature.description}</p>
+          `;
+          featuresContainer.appendChild(card);
+          lucide.createIcons();
+      // Render feature cards
+      const featuresContainer = document.getElementById('features');
+      features.forEach((feature, index) => {
+          const card = document.createElement('a');
+          card.href = feature.href;
+          card.className = 'feat bg-blue-800 p-6 rounded-lg shadow-lg block hover:bg-blue-700 transition-colors';
+          card.innerHTML = `
+              <i data-lucide="${feature.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
+              <h3 class="text-xl font-semibold text-custom mb-2">${feature.title}</h3>
+              <p class="text-custom">${feature.description}</p>
+          `;
+          featuresContainer.appendChild(card);
+          lucide.createIcons();
       });
 
       // Animate elements
@@ -173,5 +199,6 @@
         });
       });
     </script>
-  </body>
+</body>
+</body>
 </html>
