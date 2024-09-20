@@ -92,7 +92,7 @@
         features.forEach((feature, index) => {
             const card = document.createElement('a');
             card.href = feature.href;
-            card.className = 'bg-blue-800 p-6 rounded-lg shadow-lg block hover:bg-blue-700 transition-colors';
+            card.className = 'feat bg-blue-800 p-6 rounded-lg shadow-lg block hover:bg-blue-700 transition-colors';
             card.innerHTML = `
                 <i data-lucide="${feature.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
                 <h3 class="text-xl font-semibold text-blue-100 mb-2">${feature.title}</h3>
