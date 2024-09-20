@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSEC Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Library</h1>
+        <nav class="mt-4">
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/dashboard" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="mb-8 fade-in">
+            <div class="relative">
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search books..."
+                    class="w-full p-2 pl-10 rounded bg-blue-800 text-blue-100 placeholder-blue-300"
+                />
+                <i data-lucide="search" class="absolute left-3 top-2.5 text-blue-300" style="width: 20px; height: 20px;"></i>
+            </div>
+        </div>
+        <div id="books-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Book items will be dynamically added here -->
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Simulated API data
+        const books = [
+            { id: 1, title: 'Introduction to Algorithm', author: 'Thomas H. Cormen', available: true },
+            { id: 2, title: 'Data Structures and Algorithms', author: 'Narasimha Karumanchi', available: false },
+            { id: 3, title: 'Clean Code', author: 'Robert C. Martin', available: true },
+            { id: 4, title: 'Design Patterns', author: 'Erich Gamma', available: true },
+        ];
+
+        const booksContainer = document.getElementById('books-container');
+        const searchInput = document.getElementById('search-input');
+
+        function renderBooks(items) {
+            booksContainer.innerHTML = '';
+            items.forEach((book, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-blue-800 p-6 rounded-lg shadow-lg fade-in';
+                div.innerHTML = `
+                    <h2 class="text-xl font-semibold text-blue-100 mb-2">${book.title}</h2>
+                    <p class="text-blue-200 mb-4">by ${book.author}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="flex items-center ${book.available ? 'text-green-400' : 'text-red-400'}">
+                            <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                            ${book.available ? 'Available' : 'Checked Out'}
+                        </span>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                            ${book.available ? 'Borrow' : 'Reserve'}
+                        </button>
+                    </div>
+                `;
+                booksContainer.appendChild(div);
+                
+                // Trigger reflow to enable transition
+                void div.offsetWidth;
+                div.classList.add('active');
+
+                // Re-initialize Lucide icons
+                lucide.createIcons();
+            });
+        }
+
+        function filterBooks() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredBooks = books.filter(book =>
+                book.title.toLowerCase().includes(searchTerm) ||
+                book.author.toLowerCase().includes(searchTerm)
+            );
+            renderBooks(filteredBooks);
+        }
+
+        // Initial render
+        renderBooks(books);
+
+        // Add event listener for search input
+        searchInput.addEventListener('input', filterBooks);
+
+        // Activate initial fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.classList.add('active');
+        });
+
+        // Simulate delay for book items
+        booksContainer.childNodes.forEach((child, index) => {
+            setTimeout(() => {
+                child.classList.add('active');
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>
