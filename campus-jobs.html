@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Jobs - TSEC Smart Campus</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.5.1/dist/framer-motion.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br text-white">
+    <header class="p-6 flex justify-between items-center bg-blue-800 bg-opacity-80 backdrop-blur-md">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Smart Campus</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="/app_page.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+                <li><a href="/events.html" class="text-blue-200 hover:text-blue-100 transition-colors">Events</a></li>
+                <li><a href="/Login.html" class="text-blue-200 hover:text-blue-100 transition-colors">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <h2 class="text-4xl font-bold text-blue-100 mb-8">Campus Jobs</h2>
+        
+        <section id="job-search" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-4">Find Your Perfect Campus Job</h3>
+            <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                <form class="flex flex-wrap gap-4">
+                    <input type="text" placeholder="Search jobs..." class="flex-grow p-2 rounded bg-blue-700 text-white placeholder-blue-300">
+                    <select class="p-2 rounded bg-blue-700 text-white">
+                        <option value="">All Categories</option>
+                        <option value="administrative">Administrative</option>
+                        <option value="research">Research</option>
+                        <option value="teaching">Teaching Assistant</option>
+                        <option value="it">IT Support</option>
+                        <option value="library">Library</option>
+                    </select>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section id="featured-jobs" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-6">Featured Opportunities</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="featured-jobs-container">
+                <!-- Featured job cards will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="all-jobs" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-6">All Available Positions</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-blue-800 bg-opacity-50">
+                            <th class="p-3 text-blue-200">Position</th>
+                            <th class="p-3 text-blue-200">Department</th>
+                            <th class="p-3 text-blue-200">Type</th>
+                            <th class="p-3 text-blue-200">Posted Date</th>
+                            <th class="p-3 text-blue-200">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="all-jobs-container">
+                        <!-- Job rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="application-tips" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-6">Application Tips</h3>
+            <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                <ul class="list-disc list-inside space-y-2 text-blue-100">
+                    <li>Tailor your resume and cover letter to each position</li>
+                    <li>Highlight relevant coursework and projects</li>
+                    <li>Showcase your soft skills, such as communication and teamwork</li>
+                    <li>Follow up after submitting your application</li>
+                    <li>Prepare for interviews by researching the department and position</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="my-applications" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-6">My Applications</h3>
+            <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                <p class="text-blue-100 mb-4">Track the status of your job applications here. Log in to view your applications.</p>
+                <a href="/Login.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">
+                    Log In
+                    <i data-lucide="log-in" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Featured jobs data
+        const featuredJobs = [
+            { title: "Research Assistant", department: "Computer Science", type: "Part-time", icon: "flask" },
+            { title: "Library Assistant", department: "University Library", type: "Work-study", icon: "book-open" },
+            { title: "Teaching Assistant", department: "Mathematics", type: "Part-time", icon: "users" },
+        ];
+
+        // Render featured job cards
+        const featuredJobsContainer = document.getElementById('featured-jobs-container');
+        featuredJobs.forEach(job => {
+            const card = document.createElement('div');
+            card.className = 'bg-blue-800 bg-opacity-50 p-6 rounded-lg';
+            card.innerHTML = `
+                <i data-lucide="${job.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
+                <h4 class="text-xl font-semibold text-blue-100 mb-2">${job.title}</h4>
+                <p class="text-blue-200 mb-2">Department: ${job.department}</p>
+                <p class="text-blue-200 mb-4">Type: ${job.type}</p>
+                <a href="#" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">
+                    Apply Now
+                    <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                </a>
+            `;
+            featuredJobsContainer.appendChild(card);
+        });
+
+        // All jobs data
+        const allJobs = [
+            { title: "IT Support Technician", department: "IT Services", type: "Full-time", postedDate: "2023-06-01" },
+            { title: "Marketing Intern", department: "University Communications", type: "Internship", postedDate: "2023-06-05" },
+            { title: "Lab Assistant", department: "Chemistry", type: "Part-time", postedDate: "2023-06-08" },
+            { title: "Student Ambassador", department: "Admissions", type: "Work-study", postedDate: "2023-06-10" },
+            { title: "Research Assistant", department: "Psychology", type: "Part-time", postedDate: "2023-06-12" },
+        ];
+
+        // Render all jobs rows
+        const allJobsContainer = document.getElementById('all-jobs-container');
+        allJobs.forEach(job => {
+            const row = document.createElement('tr');
+            row.className = 'bg-blue-800 bg-opacity-30 hover:bg-opacity-50 transition-colors';
+            row.innerHTML = `
+                <td class="p-3 text-blue-100">${job.title}</td>
+                <td class="p-3 text-blue-100">${job.department}</td>
+                <td class="p-3 text-blue-100">${job.type}</td>
+                <td class="p-3 text-blue-100">${job.postedDate}</td>
+                <td class="p-3">
+                    <a href="#" class="text-blue-300 hover:text-blue-100 transition-colors">View Details</a>
+                </td>
+            `;
+            allJobsContainer.appendChild(row);
+        });
+
+        // Animate elements
+        const sections = document.querySelectorAll('section');
+        sections.forEach((section, index) => {
+            motion.animate(section, { opacity: [0, 1], y: [20, 0] }, { delay: index * 0.2, duration: 0.8 });
+        });
+
+        // Add hover animations to featured job cards
+        document.querySelectorAll('#featured-jobs-container > div').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                motion.animate(card, { scale: 1.05 }, { duration: 0.2 });
+            });
+            card.addEventListener('mouseleave', () => {
+                motion.animate(card, { scale: 1 }, { duration: 0.2 });
+            });
+        });
+    </script>
+</body>
+</html>

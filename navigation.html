@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Navigation - TSEC Smart Campus</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.5.1/dist/framer-motion.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br text-white">
+    <header class="p-6 flex justify-between items-center bg-blue-800 bg-opacity-80 backdrop-blur-md">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Smart Campus</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="/index.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+                <li><a href="/events.html" class="text-blue-200 hover:text-blue-100 transition-colors">Events</a></li>
+                <li><a href="/Login.html" class="text-blue-200 hover:text-blue-100 transition-colors">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <h2 class="text-4xl font-bold text-blue-100 mb-8">Campus Navigation</h2>
+        
+        <section id="map-section" class="mb-12">
+            <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                <div id="map" class="rounded-lg overflow-hidden"></div>
+            </div>
+        </section>
+
+        <section id="navigation-controls" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-4">Find Your Way</h3>
+            <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                <form id="navigation-form" class="flex flex-wrap gap-4">
+                    <select id="start-location" class="flex-grow p-2 rounded bg-blue-700 text-white">
+                        <option value="">Select start location</option>
+                        <!-- Options will be dynamically added here -->
+                    </select>
+                    <select id="end-location" class="flex-grow p-2 rounded bg-blue-700 text-white">
+                        <option value="">Select destination</option>
+                        <!-- Options will be dynamically added here -->
+                    </select>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">
+                        Get Directions
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section id="location-info" class="mb-12 hidden">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-4">Location Information</h3>
+            <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                <h4 id="location-name" class="text-xl font-semibold text-blue-100 mb-2"></h4>
+                <p id="location-description" class="text-blue-200 mb-4"></p>
+                <div id="location-hours" class="text-blue-200"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Campus locations data
+        const locations = [
+            { name: "Main Building", lat: 19.0760, lng: 72.8777, description: "Administrative offices and classrooms", hours: "Mon-Fri: 8:00 AM - 6:00 PM" },
+            { name: "Library", lat: 19.0765, lng: 72.8780, description: "Campus library with study areas", hours: "Mon-Sat: 9:00 AM - 9:00 PM" },
+            { name: "Student Center", lat: 19.0755, lng: 72.8775, description: "Cafeteria and student lounges", hours: "Mon-Sun: 7:00 AM - 10:00 PM" },
+            { name: "Sports Complex", lat: 19.0770, lng: 72.8785, description: "Gym and sports facilities", hours: "Mon-Sun: 6:00 AM - 9:00 PM" },
+            { name: "Science Building", lat: 19.0758, lng: 72.8782, description: "Science labs and lecture halls", hours: "Mon-Fri: 8:00 AM - 7:00 PM" }
+        ];
+
+        // Initialize map
+        const map = L.map('map').setView([19.0760, 72.8777], 17);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add markers and populate dropdowns
+        const startLocationSelect = document.getElementById('start-location');
+        const endLocationSelect = document.getElementById('end-location');
+
+        locations.forEach(location => {
+            // Add marker
+            const marker = L.marker([location.lat, location.lng]).addTo(map);
+            marker.bindPopup(`<b>${location.name}</b><br>${location.description}`);
+
+            // Add to dropdowns
+            const option = document.createElement('option');
+            option.value = `${location.lat},${location.lng}`;
+            option.textContent = location.name;
+            startLocationSelect.appendChild(option.cloneNode(true));
+            endLocationSelect.appendChild(option);
+
+            // Add click event to marker
+            marker.on('click', () => showLocationInfo(location));
+        });
+
+        // Show location info
+        function showLocationInfo(location) {
+            const locationInfoSection = document.getElementById('location-info');
+            const locationName = document.getElementById('location-name');
+            const locationDescription = document.getElementById('location-description');
+            const locationHours = document.getElementById('location-hours');
+
+            locationName.textContent = location.name;
+            locationDescription.textContent = location.description;
+            locationHours.textContent = `Hours: ${location.hours}`;
+
+            locationInfoSection.classList.remove('hidden');
+        }
+
+        // Handle form submission
+        document.getElementById('navigation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const start = startLocationSelect.value.split(',').map(Number);
+            const end = endLocationSelect.value.split(',').map(Number);
+
+            if (start.length === 2 && end.length === 2) {
+                // Clear existing route
+                map.eachLayer(layer => {
+                    if (layer instanceof L.Polyline) {
+                        map.removeLayer(layer);
+                    }
+                });
+
+                // Draw a simple straight line for demonstration
+                // In a real application, you would use a routing service here
+                const route = L.polyline([start, end], {color: 'red'}).addTo(map);
+                map.fitBounds(route.getBounds());
+            }
+        });
+
+        // Animate elements
+        const sections = document.querySelectorAll('section');
+        sections.forEach((section, index) => {
+            motion.animate(section, { opacity: [0, 1], y: [20, 0] }, { delay: index * 0.2, duration: 0.8 });
+        });
+    </script>
+</body>
+</html>

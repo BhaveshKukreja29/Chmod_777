@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Clubs - TSEC Smart Campus</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.5.1/dist/framer-motion.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br text-white">
+    <header class="p-6 flex justify-between items-center bg-blue-800 bg-opacity-80 backdrop-blur-md">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Smart Campus</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="/index.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+                <li><a href="/events.html" class="text-blue-200 hover:text-blue-100 transition-colors">Events</a></li>
+                <li><a href="/Login.html" class="text-blue-200 hover:text-blue-100 transition-colors">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <h2 class="text-4xl font-bold text-blue-100 mb-8">Student Clubs</h2>
+        
+        <section id="club-info" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-4">About Our Clubs</h3>
+            <p class="text-blue-100 mb-4">TSEC offers a wide variety of student clubs to enrich your campus experience. Whether you're interested in technology, arts, sports, or community service, there's a club for you!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                    <h4 class="text-xl font-semibold text-blue-200 mb-2">Join a Club</h4>
+                    <p class="text-blue-100 mb-4">Explore our list of clubs below and find one that matches your interests. Click on a club to learn more and join!</p>
+                    <a href="#club-list" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Browse Clubs
+                        <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                    </a>
+                </div>
+                <div class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                    <h4 class="text-xl font-semibold text-blue-200 mb-2">Start a New Club</h4>
+                    <p class="text-blue-100 mb-4">Have a unique idea? Create your own club and gather like-minded individuals!</p>
+                    <a href="#create-club" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Create a Club
+                        <i data-lucide="plus-circle" class="ml-2 w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="club-list" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-6">Our Clubs</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="clubs-container">
+                <!-- Club cards will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="upcoming-events" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-6">Upcoming Club Events</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-blue-800 bg-opacity-50">
+                            <th class="p-3 text-blue-200">Date</th>
+                            <th class="p-3 text-blue-200">Event</th>
+                            <th class="p-3 text-blue-200">Club</th>
+                            <th class="p-3 text-blue-200">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-container">
+                        <!-- Event rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="create-club" class="mb-12">
+            <h3 class="text-2xl font-semibold text-blue-200 mb-6">Create a New Club</h3>
+            <form class="bg-blue-800 bg-opacity-50 p-6 rounded-lg">
+                <div class="mb-4">
+                    <label for="club-name" class="block text-blue-200 mb-2">Club Name</label>
+                    <input type="text" id="club-name" name="club-name" required class="w-full p-2 rounded bg-blue-700 text-white placeholder-blue-300" placeholder="Enter club name">
+                </div>
+                <div class="mb-4">
+                    <label for="club-description" class="block text-blue-200 mb-2">Club Description</label>
+                    <textarea id="club-description" name="club-description" required class="w-full p-2 rounded bg-blue-700 text-white placeholder-blue-300" rows="4" placeholder="Describe your club's purpose and activities"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="club-category" class="block text-blue-200 mb-2">Category</label>
+                    <select id="club-category" name="club-category" required class="w-full p-2 rounded bg-blue-700 text-white">
+                        <option value="">Select a category</option>
+                        <option value="technology">Technology</option>
+                        <option value="arts">Arts & Culture</option>
+                        <option value="sports">Sports & Fitness</option>
+                        <option value="academic">Academic & Professional</option>
+                        <option value="community">Community Service</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors">Submit Club Proposal</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Club data
+        const clubs = [
+            { name: "Coding Club", category: "Technology", members: 45, icon: "code" },
+            { name: "Debate Society", category: "Academic", members: 30, icon: "message-square" },
+            { name: "Photography Club", category: "Arts", members: 25, icon: "camera" },
+            { name: "Robotics Team", category: "Technology", members: 20, icon: "cpu" },
+            { name: "Environmental Club", category: "Community", members: 35, icon: "leaf" },
+            { name: "Chess Club", category: "Sports", members: 15, icon: "chess-knight" }
+        ];
+
+        // Render club cards
+        const clubsContainer = document.getElementById('clubs-container');
+        clubs.forEach(club => {
+            const card = document.createElement('div');
+            card.className = 'bg-blue-800 bg-opacity-50 p-6 rounded-lg';
+            card.innerHTML = `
+                <i data-lucide="${club.icon}" class="w-12 h-12 text-blue-300 mb-4"></i>
+                <h4 class="text-xl font-semibold text-blue-100 mb-2">${club.name}</h4>
+                <p class="text-blue-200 mb-2">Category: ${club.category}</p>
+                <p class="text-blue-200">Members: ${club.members}</p>
+                <a href="#" class="mt-4 inline-block text-blue-300 hover:text-blue-100">Learn More</a>
+            `;
+            clubsContainer.appendChild(card);
+        });
+
+        // Event data
+        const events = [
+            { date: "2023-06-15", event: "Coding Workshop", club: "Coding Club", location: "Lab 101" },
+            { date: "2023-06-18", event: "Debate Tournament", club: "Debate Society", location: "Auditorium" },
+            { date: "2023-06-20", event: "Photo Exhibition", club: "Photography Club", location: "Art Gallery" },
+            { date: "2023-06-25", event: "Robotics Showcase", club: "Robotics Team", location: "Main Hall" }
+        ];
+
+        // Render event rows
+        const eventsContainer = document.getElementById('events-container');
+        events.forEach(event => {
+            const row = document.createElement('tr');
+            row.className = 'bg-blue-800 bg-opacity-30 hover:bg-opacity-50 transition-colors';
+            row.innerHTML = `
+                <td class="p-3 text-blue-100">${event.date}</td>
+                <td class="p-3 text-blue-100">${event.event}</td>
+                <td class="p-3 text-blue-100">${event.club}</td>
+                <td class="p-3 text-blue-100">${event.location}</td>
+            `;
+            eventsContainer.appendChild(row);
+        });
+
+        // Animate elements
+        const sections = document.querySelectorAll('section');
+        sections.forEach((section, index) => {
+            motion.animate(section, { opacity: [0, 1], y: [20, 0] }, { delay: index * 0.2, duration: 0.8 });
+        });
+
+        // Add hover animations to club cards
+        document.querySelectorAll('#clubs-container > div').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                motion.animate(card, { scale: 1.05 }, { duration: 0.2 });
+            });
+            card.addEventListener('mouseleave', () => {
+                motion.animate(card, { scale: 1 }, { duration: 0.2 });
+            });
+        });
+    </script>
+</body>
+</html>
