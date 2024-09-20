@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSEC Campus Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.5.1/dist/framer-motion.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Campus Events</h1>
+        <nav class="mt-4">
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/dashboard" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="events-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Event cards will be dynamically added here -->
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Simulated events data
+        const events = [
+            { id: 1, title: 'Tech Fest 2023', date: '2023-09-15', time: '10:00 AM', location: 'Main Auditorium', description: 'Annual technology festival showcasing student projects and innovations.', category: 'Technology', attendees: 500 },
+            { id: 2, title: 'Career Fair', date: '2023-10-01', time: '9:00 AM', location: 'Sports Complex', description: 'Meet top employers and explore career opportunities across various industries.', category: 'Career', attendees: 1000 },
+            { id: 3, title: 'Alumni Meet', date: '2023-11-05', time: '6:00 PM', location: 'College Grounds', description: 'Annual gathering of TSEC alumni to network and share experiences.', category: 'Networking', attendees: 300 },
+            { id: 4, title: 'Hackathon', date: '2023-12-10', time: '8:00 AM', location: 'Computer Labs', description: '24-hour coding competition to solve real-world problems.', category: 'Competition', attendees: 200 },
+        ];
+
+        // Function to create event card
+        function createEventCard(event, index) {
+            const card = document.createElement('div');
+            card.className = 'bg-blue-800 p-6 rounded-lg shadow-lg';
+            card.innerHTML = `
+                <h2 class="text-2xl font-semibold text-blue-100 mb-2">${event.title}</h2>
+                <div class="flex items-center text-blue-300 mb-2">
+                    <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
+                    <span>${event.date}</span>
+                </div>
+                <div class="flex items-center text-blue-300 mb-2">
+                    <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                    <span>${event.time}</span>
+                </div>
+                <div class="flex items-center text-blue-300 mb-2">
+                    <i data-lucide="map-pin" class="w-4 h-4 mr-2"></i>
+                    <span>${event.location}</span>
+                </div>
+                <div class="flex items-center text-blue-300 mb-2">
+                    <i data-lucide="tag" class="w-4 h-4 mr-2"></i>
+                    <span>${event.category}</span>
+                </div>
+                <div class="flex items-center text-blue-300 mb-4">
+                    <i data-lucide="users" class="w-4 h-4 mr-2"></i>
+                    <span>${event.attendees} attendees</span>
+                </div>
+                <p class="text-blue-200 mb-4">${event.description}</p>
+                <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">
+                    Register Now
+                </button>
+            `;
+            return card;
+        }
+
+        // Render event cards
+        const eventsContainer = document.getElementById('events-container');
+        events.forEach((event, index) => {
+            const card = createEventCard(event, index);
+            eventsContainer.appendChild(card);
+        });
+
+        // Re-initialize Lucide icons after adding new elements
+        lucide.createIcons();
+
+        // Animate elements
+        const fadeIn = {
+            opacity: [0, 1],
+        };
+
+        const fadeInUp = {
+            opacity: [0, 1],
+            y: [20, 0],
+        };
+
+        motion.animate(eventsContainer, fadeIn, { duration: 0.5 });
+
+        document.querySelectorAll('#events-container > div').forEach((card, index) => {
+            motion.animate(card, fadeInUp, { duration: 0.5, delay: index * 0.1 });
+
+            // Add hover and tap animations to buttons
+            const button = card.querySelector('button');
+            button.addEventListener('mouseenter', () => {
+                motion.animate(button, { scale: 1.05 }, { duration: 0.2 });
+            });
+            button.addEventListener('mouseleave', () => {
+                motion.animate(button, { scale: 1 }, { duration: 0.2 });
+            });
+            button.addEventListener('mousedown', () => {
+                motion.animate(button, { scale: 0.95 }, { duration: 0.1 });
+            });
+            button.addEventListener('mouseup', () => {
+                motion.animate(button, { scale: 1.05 }, { duration: 0.1 });
+            });
+        });
+    </script>
+</body>
+</html>
