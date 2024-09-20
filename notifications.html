@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSEC Notifications</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Notifications</h1>
+        <nav class="mt-4">
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/dashboard" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="notifications-container" class="space-y-4">
+            <!-- Notifications will be dynamically added here -->
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Simulated API data
+        const notifications = [
+            { id: 1, type: 'alert', message: 'Campus-wide fire drill scheduled for tomorrow at 2 PM', time: '1 hour ago' },
+            { id: 2, type: 'info', message: 'New research grants available for Computer Science students', time: '3 hours ago' },
+            { id: 3, type: 'success', message: 'Library extended hours approved for exam week', time: '1 day ago' },
+            { id: 4, type: 'info', message: 'Guest lecture on AI and Ethics next Monday', time: '2 days ago' },
+        ];
+
+        const notificationsContainer = document.getElementById('notifications-container');
+
+        function getIcon(type) {
+            switch (type) {
+                case 'alert': return '<i data-lucide="alert-circle" class="w-6 h-6 text-red-400"></i>';
+                case 'info': return '<i data-lucide="info" class="w-6 h-6 text-blue-400"></i>';
+                case 'success': return '<i data-lucide="check-circle" class="w-6 h-6 text-green-400"></i>';
+                default: return '<i data-lucide="bell" class="w-6 h-6 text-blue-300"></i>';
+            }
+        }
+
+        function renderNotifications() {
+            notifications.forEach((notification, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-blue-800 p-4 rounded-lg shadow-lg flex items-start fade-in';
+                div.innerHTML = `
+                    <div class="mr-4 mt-1">${getIcon(notification.type)}</div>
+                    <div class="flex-grow">
+                        <p class="text-blue-100">${notification.message}</p>
+                        <p class="text-blue-300 text-sm mt-1">${notification.time}</p>
+                    </div>
+                `;
+                notificationsContainer.appendChild(div);
+                
+                // Trigger reflow to enable transition
+                void div.offsetWidth;
+                div.classList.add('active');
+
+                // Re-initialize Lucide icons
+                lucide.createIcons();
+            });
+        }
+
+        // Render notifications
+        renderNotifications();
+
+        // Simulate delay for notifications
+        notificationsContainer.childNodes.forEach((child, index) => {
+            setTimeout(() => {
+                child.classList.add('active');
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>
