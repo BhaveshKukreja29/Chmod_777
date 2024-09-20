@@ -1,75 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TSEC Class Schedule</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
     <style>
-        .bg-gradient-to-br {
-            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      .feat {
+        transition: transform 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+      }
+
+      .feat:hover {
+        animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+        transform: scale(1.1); /* adjust the scale factor as needed */
+      }
+
+      @keyframes scale-up-center {
+        0% {
+          transform: scale(1);
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+        100% {
+          transform: scale(1.1); /* adjust the scale factor as needed */
         }
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      }
+
+      .bg-gradient-to-br {
+        background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .fade-in.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
     </style>
-</head>
-<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+  </head>
+  <body class="min-h-screen bg-gradient-to-br p-6 text-white">
     <header class="mb-8">
-        <h1 class="text-3xl font-bold text-blue-100">TSEC Class Schedule</h1>
-        <nav class="mt-4">
-            <ul class="flex space-x-4">
-                <li><a href="/app_page.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
-                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
-            </ul>
-        </nav>
+      <h1 class="text-3xl font-bold text-blue-100">TSEC Class Schedule</h1>
+      <nav class="mt-4">
+        <ul class="flex space-x-4">
+          <li>
+            <a
+              href="/app_page.html"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="/dashboard.html"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Dashboard</a
+            >
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <div class="mb-6 fade-in">
-            <select id="day-select" class="bg-blue-800 text-blue-100 p-2 rounded">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-            </select>
-        </div>
-        <div id="schedule-container" class="space-y-4">
-            <!-- Schedule items will be dynamically added here -->
-        </div>
+      <div class="mb-6 fade-in">
+        <select id="day-select" class="bg-blue-800 text-blue-100 p-2 rounded">
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+        </select>
+      </div>
+      <div id="schedule-container" class="space-y-4">
+        <!-- Schedule items will be dynamically added here -->
+      </div>
     </main>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+      // Initialize Lucide icons
+      lucide.createIcons();
 
-        // Simulated API data
-        const schedule = [
-            { id: 1, day: 'Monday', time: '9:00 AM - 10:30 AM', subject: 'Data Structures', room: 'CS-101' },
-            { id: 2, day: 'Monday', time: '11:00 AM - 12:30 PM', subject: 'Database Management', room: 'CS-102' },
-            { id: 3, day: 'Tuesday', time: '9:00 AM - 10:30 AM', subject: 'Computer Networks', room: 'CS-103' },
-            { id: 4, day: 'Tuesday', time: '11:00 AM - 12:30 PM', subject: 'Operating Systems', room: 'CS-104' },
-            { id: 5, day: 'Wednesday', time: '9:00 AM - 10:30 AM', subject: 'Software Engineering', room: 'CS-105' },
-        ];
+      // Simulated API data
+      const schedule = [
+        {
+          id: 1,
+          day: "Monday",
+          time: "9:00 AM - 10:30 AM",
+          subject: "Data Structures",
+          room: "CS-101",
+        },
+        {
+          id: 2,
+          day: "Monday",
+          time: "11:00 AM - 12:30 PM",
+          subject: "Database Management",
+          room: "CS-102",
+        },
+        {
+          id: 3,
+          day: "Tuesday",
+          time: "9:00 AM - 10:30 AM",
+          subject: "Computer Networks",
+          room: "CS-103",
+        },
+        {
+          id: 4,
+          day: "Tuesday",
+          time: "11:00 AM - 12:30 PM",
+          subject: "Operating Systems",
+          room: "CS-104",
+        },
+        {
+          id: 5,
+          day: "Wednesday",
+          time: "9:00 AM - 10:30 AM",
+          subject: "Software Engineering",
+          room: "CS-105",
+        },
+        {
+          id: 6,
+          day: "Wednesday",
+          time: "11:00 AM - 12:30 PM",
+          subject: "Web Development",
+          room: "CS-106",
+        },
+        {
+          id: 7,
+          day: "Thursday",
+          time: "9:00 AM - 10:30 AM",
+          subject: "Artificial Intelligence",
+          room: "CS-201",
+        },
+        {
+          id: 8,
+          day: "Thursday",
+          time: "11:00 AM - 12:30 PM",
+          subject: "Machine Learning",
+          room: "CS-202",
+        },
+        {
+          id: 9,
+          day: "Friday",
+          time: "9:00 AM - 10:30 AM",
+          subject: "Computer Graphics",
+          room: "CS-203",
+        },
+        {
+          id: 10,
+          day: "Friday",
+          time: "11:00 AM - 12:30 PM",
+          subject: "Cryptography",
+          room: "CS-204",
+        },
+        {
+          id: 11,
+          day: "Monday",
+          time: "2:00 PM - 3:30 PM",
+          subject: "Discrete Mathematics",
+          room: "CS-205",
+        },
+        {
+          id: 12,
+          day: "Tuesday",
+          time: "2:00 PM - 3:30 PM",
+          subject: "Digital Logic",
+          room: "CS-206",
+        },
+        {
+          id: 13,
+          day: "Wednesday",
+          time: "2:00 PM - 3:30 PM",
+          subject: "Microprocessors",
+          room: "CS-207",
+        },
+        {
+          id: 14,
+          day: "Thursday",
+          time: "2:00 PM - 3:30 PM",
+          subject: "Computer Architecture",
+          room: "CS-208",
+        },
+        {
+          id: 15,
+          day: "Friday",
+          time: "2:00 PM - 3:30 PM",
+          subject: "Network Security",
+          room: "CS-209",
+        },
+        {
+          id: 16,
+          day: "Monday",
+          time: "4:00 PM - 5:30 PM",
+          subject: "Algorithms",
+          room: "CS-210",
+        },
+        {
+          id: 17,
+          day: "Tuesday",
+          time: "4:00 PM - 5:30 PM",
+          subject: "Computer Vision",
+          room: "CS-211",
+        },
+        {
+          id: 18,
+          day: "Wednesday",
+          time: "4:00 PM - 5:30 PM",
+          subject: "Human-Computer Interaction",
+          room: "CS-212",
+        },
+      ];
 
-        const daySelect = document.getElementById('day-select');
-        const scheduleContainer = document.getElementById('schedule-container');
+      const daySelect = document.getElementById("day-select");
+      const scheduleContainer = document.getElementById("schedule-container");
 
-        function renderSchedule(day) {
-            scheduleContainer.innerHTML = '';
-            const filteredSchedule = schedule.filter(item => item.day === day);
-            
-            filteredSchedule.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-blue-800 p-4 rounded-lg shadow-lg fade-in';
-                div.innerHTML = `
+      function renderSchedule(day) {
+        scheduleContainer.innerHTML = "";
+        const filteredSchedule = schedule.filter((item) => item.day === day);
+
+        filteredSchedule.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "feat bg-blue-800 p-4 rounded-lg shadow-lg fade-in";
+          div.innerHTML = `
                     <h2 class="text-xl font-semibold text-blue-100 mb-2">${item.subject}</h2>
                     <div class="flex items-center text-blue-300 mb-2">
                         <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
@@ -80,28 +234,28 @@
                         <span>Room: ${item.room}</span>
                     </div>
                 `;
-                scheduleContainer.appendChild(div);
-                
-                // Trigger reflow to enable transition
-                void div.offsetWidth;
-                div.classList.add('active');
+          scheduleContainer.appendChild(div);
 
-                // Re-initialize Lucide icons
-                lucide.createIcons();
-            });
-        }
+          // Trigger reflow to enable transition
+          void div.offsetWidth;
+          div.classList.add("active");
 
-        daySelect.addEventListener('change', (e) => {
-            renderSchedule(e.target.value);
+          // Re-initialize Lucide icons
+          lucide.createIcons();
         });
+      }
 
-        // Initial render
-        renderSchedule('Monday');
+      daySelect.addEventListener("change", (e) => {
+        renderSchedule(e.target.value);
+      });
 
-        // Activate initial fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.classList.add('active');
-        });
+      // Initial render
+      renderSchedule("Monday");
+
+      // Activate initial fade-in elements
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        el.classList.add("active");
+      });
     </script>
-</body>
+  </body>
 </html>

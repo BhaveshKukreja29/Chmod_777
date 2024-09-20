@@ -1,126 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TSEC Lab Equipment</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
     <style>
-        .bg-gradient-to-br {
-            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      .feat {
+        transition: transform 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+      }
+
+      .feat:hover {
+        animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+        transform: scale(1.1); /* adjust the scale factor as needed */
+      }
+
+      @keyframes scale-up-center {
+        0% {
+          transform: scale(1);
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+        100% {
+          transform: scale(1.1); /* adjust the scale factor as needed */
         }
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      }
+
+      .bg-gradient-to-br {
+        background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .fade-in.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
     </style>
-</head>
-<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+  </head>
+  <body class="min-h-screen bg-gradient-to-br p-6 text-white">
     <header class="mb-8">
-        <h1 class="text-3xl font-bold text-blue-100">TSEC Lab Equipment</h1>
-        <nav class="mt-4">
-            <ul class="flex space-x-4">
-                <li><a href="/app_page.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
-                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
-            </ul>
-        </nav>
+      <h1 class="text-3xl font-bold text-blue-100">TSEC Lab Equipment</h1>
+      <nav class="mt-4">
+        <ul class="flex space-x-4">
+          <li>
+            <a
+              href="/"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="/dashboard"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Dashboard</a
+            >
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <div class="mb-8 fade-in">
-            <div class="relative">
-                <input
-                    type="text"
-                    id="search-input"
-                    placeholder="Search equipment..."
-                    class="w-full p-2 pl-10 rounded bg-blue-800 text-blue-100 placeholder-blue-300"
-                />
-                <i data-lucide="search" class="absolute left-3 top-2.5 text-blue-300" style="width: 20px; height: 20px;"></i>
-            </div>
+      <div class="mb-8 fade-in">
+        <div class="relative">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search equipment..."
+            class="w-full p-2 pl-10 rounded bg-blue-800 text-blue-100 placeholder-blue-300"
+          />
+          <i
+            data-lucide="search"
+            class="absolute left-3 top-2.5 text-blue-300"
+            style="width: 20px; height: 20px"
+          ></i>
         </div>
-        <div id="equipment-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <!-- Equipment items will be dynamically added here -->
-        </div>
+      </div>
+      <div
+        id="equipment-container"
+        class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      >
+        <!-- Equipment items will be dynamically added here -->
+      </div>
     </main>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+      // Initialize Lucide icons
+      lucide.createIcons();
 
-        // Simulated API data
-        const equipment = [
-            { id: 1, name: 'Microscope', lab: 'Biology Lab', available: true },
-            { id: 2, name: 'Oscilloscope', lab: 'Physics Lab', available: false },
-            { id: 3, name: 'Centrifuge', lab: 'Chemistry Lab', available: true },
-            { id: 4, name: '3D Printer', lab: 'Engineering Lab', available: true },
-        ];
+      // Simulated API data
+      const equipment = [
+        {
+          id: 1,
+          name: "Microscope",
+          lab: "Biology Lab",
+          available: true,
+        },
+        {
+          id: 2,
+          name: "Oscilloscope",
+          lab: "Physics Lab",
+          available: false,
+        },
+        {
+          id: 3,
+          name: "Centrifuge",
+          lab: "Chemistry Lab",
+          available: true,
+        },
+        {
+          id: 4,
+          name: "3D Printer",
+          lab: "Engineering Lab",
+          available: true,
+        },
+        {
+          id: 5,
+          name: "Spectrophotometer",
+          lab: "Chemistry Lab",
+          available: true,
+        },
+        {
+          id: 6,
+          name: "Thermocycler",
+          lab: "Biology Lab",
+          available: true,
+        },
+        {
+          id: 7,
+          name: "Autoclave",
+          lab: "Microbiology Lab",
+          available: true,
+        },
+        {
+          id: 8,
+          name: "Gas Chromatograph",
+          lab: "Chemistry Lab",
+          available: false,
+        },
+        {
+          id: 9,
+          name: "Mass Spectrometer",
+          lab: "Chemistry Lab",
+          available: true,
+        },
+        {
+          id: 10,
+          name: "PCR Machine",
+          lab: "Molecular Biology Lab",
+          available: true,
+        },
+        {
+          id: 11,
+          name: "Electron Microscope",
+          lab: "Physics Lab",
+          available: false,
+        },
+        {
+          id: 12,
+          name: "X-ray Diffractometer",
+          lab: "Physics Lab",
+          available: true,
+        },
+        {
+          id: 13,
+          name: "Thermal Analyzer",
+          lab: "Materials Science Lab",
+          available: true,
+        },
+        {
+          id: 14,
+          name: "Scanning Tunneling Microscope",
+          lab: "Physics Lab",
+          available: true,
+        },
+        {
+          id: 15,
+          name: "Laser Cutter",
+          lab: "Engineering Lab",
+          available: true,
+        },
+        {
+          id: 16,
+          name: "CNC Milling Machine",
+          lab: "Engineering Lab",
+          available: true,
+        },
+        {
+          id: 17,
+          name: "Vacuum Chamber",
+          lab: "Physics Lab",
+          available: true,
+        },
+        {
+          id: 18,
+          name: "Gel Electrophoresis",
+          lab: "Molecular Biology Lab",
+          available: true,
+        },
+        {
+          id: 19,
+          name: "Western Blot",
+          lab: "Biochemistry Lab",
+          available: true,
+        },
+        {
+          id: 20,
+          name: "Microplate Reader",
+          lab: "Biochemistry Lab",
+          available: true,
+        },
+        {
+          id: 21,
+          name: "Cell Culture Hood",
+          lab: "Cell Biology Lab",
+          available: true,
+        },
+        {
+          id: 22,
+          name: "Fluorescence Microscope",
+          lab: "Cell Biology Lab",
+          available: true,
+        },
+        {
+          id: 23,
+          name: "Confocal Microscope",
+          lab: "Cell Biology Lab",
+          available: true,
+        },
+        {
+          id: 24,
+          name: "Flow Cytometer",
+          lab: "Immunology Lab",
+          available: true,
+        },
+        {
+          id: 25,
+          name: "UV-Vis Spectrophotometer",
+          lab: "Chemistry Lab",
+          available: true,
+        },
+        {
+          id: 26,
+          name: "FTIR Spectrometer",
+          lab: "Chemistry Lab",
+          available: true,
+        },
+        {
+          id: 27,
+          name: "NMR Spectrometer",
+          lab: "Chemistry Lab",
+          available: false,
+        },
+        {
+          id: 28,
+          name: "Chromatography System",
+          lab: "Chemistry Lab",
+          available: true,
+        },
+        {
+          id: 29,
+          name: "Mass Spectrometry System",
+          lab: "Chemistry Lab",
+          available: true,
+        },
+        {
+          id: 30,
+          name: "Thermal Cycler",
+          lab: "Molecular Biology Lab",
+          available: true,
+        },
+        {
+          id: 31,
+          name: "Real-time PCR Machine",
+          lab: "Molecular Biology Lab",
+          available: true,
+        },
+      ];
 
-        const equipmentContainer = document.getElementById('equipment-container');
-        const searchInput = document.getElementById('search-input');
+      const equipmentContainer = document.getElementById("equipment-container");
+      const searchInput = document.getElementById("search-input");
 
-        function renderEquipment(items) {
-            equipmentContainer.innerHTML = '';
-            items.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-blue-800 p-6 rounded-lg shadow-lg fade-in';
-                div.innerHTML = `
+      function renderEquipment(items) {
+        equipmentContainer.innerHTML = "";
+        items.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "feat bg-blue-800 p-6 rounded-lg shadow-lg fade-in";
+          div.innerHTML = `
                     <h2 class="text-xl font-semibold text-blue-100 mb-2 flex items-center">
                         <i data-lucide="flask" class="w-6 h-6 mr-2"></i>
                         ${item.name}
                     </h2>
                     <p class="text-blue-200 mb-4">${item.lab}</p>
                     <div class="flex items-center">
-                        ${item.available 
+                        ${
+                          item.available
                             ? '<i data-lucide="check-circle" class="w-5 h-5 text-green-400 mr-2"></i>'
                             : '<i data-lucide="x-circle" class="w-5 h-5 text-red-400 mr-2"></i>'
                         }
-                        <span class="${item.available ? 'text-green-400' : 'text-red-400'}">
-                            ${item.available ? 'Available' : 'In Use'}
+                        <span class="${
+                          item.available ? "text-green-400" : "text-red-400"
+                        }">
+                            ${item.available ? "Available" : "In Use"}
                         </span>
                     </div>
                 `;
-                equipmentContainer.appendChild(div);
-                
-                // Trigger reflow to enable transition
-                void div.offsetWidth;
-                div.classList.add('active');
+          equipmentContainer.appendChild(div);
 
-                // Re-initialize Lucide icons
-                lucide.createIcons();
-            });
-        }
+          // Trigger reflow to enable transition
+          void div.offsetWidth;
+          div.classList.add("active");
 
-        function filterEquipment() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const filteredEquipment = equipment.filter(item =>
-                item.name.toLowerCase().includes(searchTerm) ||
-                item.lab.toLowerCase().includes(searchTerm)
-            );
-            renderEquipment(filteredEquipment);
-        }
-
-        // Initial render
-        renderEquipment(equipment);
-
-        // Add event listener for search input
-        searchInput.addEventListener('input', filterEquipment);
-
-        // Activate initial fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.classList.add('active');
+          // Re-initialize Lucide icons
+          lucide.createIcons();
         });
+      }
 
-        // Simulate delay for equipment items
-        equipmentContainer.childNodes.forEach((child, index) => {
-            setTimeout(() => {
-                child.classList.add('active');
-            }, index * 100);
-        });
+      function filterEquipment() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredEquipment = equipment.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchTerm) ||
+            item.lab.toLowerCase().includes(searchTerm)
+        );
+        renderEquipment(filteredEquipment);
+      }
+
+      // Initial render
+      renderEquipment(equipment);
+
+      // Add event listener for search input
+      searchInput.addEventListener("input", filterEquipment);
+
+      // Activate initial fade-in elements
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        el.classList.add("active");
+      });
+
+      // Simulate delay for equipment items
+      equipmentContainer.childNodes.forEach((child, index) => {
+        setTimeout(() => {
+          child.classList.add("active");
+        }, index * 100);
+      });
     </script>
-</body>
+  </body>
 </html>
