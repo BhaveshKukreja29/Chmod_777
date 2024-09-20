@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSEC Campus Transport</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <style>
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-blue-100">TSEC Campus Transport</h1>
+        <nav class="mt-4">
+            <ul class="flex space-x-4">
+                <li><a href="/app_page.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
+                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="buses-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Bus information will be dynamically added here -->
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Simulated API data
+        const buses = [
+            { id: 1, name: 'Bus 1', route: 'Main Gate - Engineering Block', nextStop: 'Library', eta: '5 min' },
+            { id: 2, name: 'Bus 2', route: 'Hostel - Cafeteria', nextStop: 'Sports Complex', eta: '10 min' },
+            { id: 3, name: 'Bus 3', route: 'Parking - Main Building', nextStop: 'Auditorium', eta: '3 min' },
+        ];
+
+        const busesContainer = document.getElementById('buses-container');
+
+        function renderBuses() {
+            buses.forEach((bus, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-blue-800 p-6 rounded-lg shadow-lg fade-in';
+                div.innerHTML = `
+                    <h2 class="text-xl font-semibold text-blue-100 mb-2 flex items-center">
+                        <i data-lucide="bus" class="w-6 h-6 mr-2"></i>
+                        ${bus.name}
+                    </h2>
+                    <p class="text-blue-200 mb-4">${bus.route}</p>
+                    <div class="flex items-center text-blue-300 mb-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 mr-2"></i>
+                        <span>Next Stop: ${bus.nextStop}</span>
+                    </div>
+                    <div class="flex items-center text-blue-300">
+                        <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
+                        <span>ETA: ${bus.eta}</span>
+                    </div>
+                `;
+                busesContainer.appendChild(div);
+                
+                // Trigger reflow to enable transition
+                void div.offsetWidth;
+                div.classList.add('active');
+
+                // Re-initialize Lucide icons
+                lucide.createIcons();
+            });
+        }
+
+        // Render buses
+        renderBuses();
+
+        // Simulate delay for bus items
+        busesContainer.childNodes.forEach((child, index) => {
+            setTimeout(() => {
+                child.classList.add('active');
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>
