@@ -1,123 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TSEC Library</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
     <style>
-        .bg-gradient-to-br {
-            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      .feat {
+        transition: transform 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+      }
+
+      .feat:hover {
+        animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+        transform: scale(1.1); /* adjust the scale factor as needed */
+      }
+
+      @keyframes scale-up-center {
+        0% {
+          transform: scale(1);
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+        100% {
+          transform: scale(1.1); /* adjust the scale factor as needed */
         }
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      }
+
+      .bg-gradient-to-br {
+        background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .fade-in.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
     </style>
-</head>
-<body class="min-h-screen bg-gradient-to-br p-6 text-white">
+  </head>
+  <body class="min-h-screen bg-gradient-to-br p-6 text-white">
     <header class="mb-8">
-        <h1 class="text-3xl font-bold text-blue-100">TSEC Library</h1>
-        <nav class="mt-4">
-            <ul class="flex space-x-4">
-                <li><a href="/app_page.html" class="text-blue-200 hover:text-blue-100 transition-colors">Home</a></li>
-                <li><a href="/dashboard.html" class="text-blue-200 hover:text-blue-100 transition-colors">Dashboard</a></li>
-            </ul>
-        </nav>
+      <h1 class="text-3xl font-bold text-blue-100">TSEC Library</h1>
+      <nav class="mt-4">
+        <ul class="flex space-x-4">
+          <li>
+            <a
+              href="/"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="/dashboard"
+              class="text-blue-200 hover:text-blue-100 transition-colors"
+              >Dashboard</a
+            >
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <div class="mb-8 fade-in">
-            <div class="relative">
-                <input
-                    type="text"
-                    id="search-input"
-                    placeholder="Search books..."
-                    class="w-full p-2 pl-10 rounded bg-blue-800 text-blue-100 placeholder-blue-300"
-                />
-                <i data-lucide="search" class="absolute left-3 top-2.5 text-blue-300" style="width: 20px; height: 20px;"></i>
-            </div>
+      <div class="mb-8 fade-in">
+        <div class="relative">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search books..."
+            class="w-full p-2 pl-10 rounded bg-blue-800 text-blue-100 placeholder-blue-300"
+          />
+          <i
+            data-lucide="search"
+            class="absolute left-3 top-2.5 text-blue-300"
+            style="width: 20px; height: 20px"
+          ></i>
         </div>
-        <div id="books-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <!-- Book items will be dynamically added here -->
-        </div>
+      </div>
+      <div
+        id="books-container"
+        class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      >
+        <!-- Book items will be dynamically added here -->
+      </div>
     </main>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+      // Initialize Lucide icons
+      lucide.createIcons();
 
-        // Simulated API data
-        const books = [
-            { id: 1, title: 'Introduction to Algorithm', author: 'Thomas H. Cormen', available: true },
-            { id: 2, title: 'Data Structures and Algorithms', author: 'Narasimha Karumanchi', available: false },
-            { id: 3, title: 'Clean Code', author: 'Robert C. Martin', available: true },
-            { id: 4, title: 'Design Patterns', author: 'Erich Gamma', available: true },
-        ];
+      // Simulated API data
+      const books = [
+        {
+          id: 1,
+          title: "Introduction to Algorithm",
+          author: "Thomas H. Cormen",
+          available: true,
+        },
+        {
+          id: 2,
+          title: "Data Structures and Algorithms",
+          author: "Narasimha Karumanchi",
+          available: false,
+        },
+        {
+          id: 3,
+          title: "Clean Code",
+          author: "Robert C. Martin",
+          available: true,
+        },
+        {
+          id: 4,
+          title: "Design Patterns",
+          author: "Erich Gamma",
+          available: true,
+        },
+        {
+          id: 5,
+          title: "Project Hail Mary",
+          author: "Andy Weir",
+          available: true,
+        },
+        {
+          id: 6,
+          title: "Mein Kampf",
+          author: "Adolf Hitler",
+          available: true,
+        },
+        {
+          id: 7,
+          title: "The Pragmatic Programmer",
+          author: "Andrew Hunt",
+          available: true,
+        },
+        {
+          id: 8,
+          title: "The Art of Computer Programming",
+          author: "Donald Knuth",
+          available: false,
+        },
+        {
+          id: 9,
+          title: "Head First Java",
+          author: "Kathy Sierra",
+          available: true,
+        },
+        {
+          id: 10,
+          title: "C++ Primer",
+          author: "Lippman, Lajoie, and Moo",
+          available: true,
+        },
+        {
+          id: 11,
+          title: "The C Programming Language",
+          author: "Brian Kernighan",
+          available: true,
+        },
+        {
+          id: 12,
+          title: "Algorithms to Live By",
+          author: "Brian Christian",
+          available: true,
+        },
+        {
+          id: 13,
+          title: "The Elements of Computing Systems",
+          author: "Noam Nisan",
+          available: true,
+        },
+        {
+          id: 14,
+          title: "Computer Organization and Design",
+          author: "David A. Patterson",
+          available: true,
+        },
+        {
+          id: 15,
+          title: "The Singularity is Near",
+          author: "Ray Kurzweil",
+          available: true,
+        },
+        {
+          id: 16,
+          title: "Introduction to Machine Learning",
+          author: "Ethem Alpaydin",
+          available: true,
+        },
+        {
+          id: 17,
+          title: "Deep Learning",
+          author: "Ian Goodfellow",
+          available: true,
+        },
+        {
+          id: 18,
+          title: "Natural Language Processing",
+          author: "Christopher Manning",
+          available: true,
+        },
+        {
+          id: 19,
+          title: "The Algorithm Design Manual",
+          author: "Steven Skiena",
+          available: true,
+        },
+        {
+          id: 20,
+          title: "Computer Networks",
+          author: "Andrew S. Tanenbaum",
+          available: true,
+        },
+        {
+          id: 21,
+          title: "Database Systems",
+          author: "Hector Garcia-Molina",
+          available: true,
+        },
+        {
+          id: 22,
+          title: "Operating System Concepts",
+          author: "Abraham Silberschatz",
+          available: true,
+        },
+        {
+          id: 23,
+          title: "Computer Vision",
+          author: "Richard Szeliski",
+          available: true,
+        },
+        {
+          id: 24,
+          title: "Robotics, Vision & Control",
+          author: "Peter Corke",
+          available: true,
+        },
+        {
+          id: 25,
+          title: "The Haskell Programming Language",
+          author: "Graham Hutton",
+          available: true,
+        },
+        {
+          id: 26,
+          title: "Type Theory and Functional Programming",
+          author: "Simon Peyton Jones",
+          available: true,
+        },
+        {
+          id: 27,
+          title: "Computer Graphics",
+          author: "James Foley",
+          available: true,
+        },
+        {
+          id: 28,
+          title: "Human-Computer Interaction",
+          author: "Jennifer Preece",
+          available: true,
+        },
+        {
+          id: 29,
+          title: "Software Engineering at Google",
+          author: "Titus Winters",
+          available: true,
+        },
+        {
+          id: 30,
+          title: "The DevOps Handbook",
+          author: "Gene Kim",
+          available: true,
+        },
+        {
+          id: 31,
+          title: "Site Reliability Engineering",
+          author: "Niall Richard Murphy",
+          available: true,
+        },
+      ];
 
-        const booksContainer = document.getElementById('books-container');
-        const searchInput = document.getElementById('search-input');
+      const booksContainer = document.getElementById("books-container");
+      const searchInput = document.getElementById("search-input");
 
-        function renderBooks(items) {
-            booksContainer.innerHTML = '';
-            items.forEach((book, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-blue-800 p-6 rounded-lg shadow-lg fade-in';
-                div.innerHTML = `
-                    <h2 class="text-xl font-semibold text-blue-100 mb-2">${book.title}</h2>
+      function renderBooks(items) {
+        booksContainer.innerHTML = "";
+        items.forEach((book, index) => {
+          const div = document.createElement("div");
+          div.className = "feat bg-blue-800 p-6 rounded-lg shadow-lg fade-in";
+          div.innerHTML = `
+                    <h2 class="text-xl font-semibold text-blue-100 mb-2">${
+                      book.title
+                    }</h2>
                     <p class="text-blue-200 mb-4">by ${book.author}</p>
                     <div class="flex items-center justify-between">
-                        <span class="flex items-center ${book.available ? 'text-green-400' : 'text-red-400'}">
+                        <span class="flex items-center ${
+                          book.available ? "text-green-400" : "text-red-400"
+                        }">
                             <i data-lucide="clock" class="w-4 h-4 mr-2"></i>
-                            ${book.available ? 'Available' : 'Checked Out'}
+                            ${book.available ? "Available" : "Checked Out"}
                         </span>
                         <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
-                            ${book.available ? 'Borrow' : 'Reserve'}
+                            ${book.available ? "Borrow" : "Reserve"}
                         </button>
                     </div>
                 `;
-                booksContainer.appendChild(div);
-                
-                // Trigger reflow to enable transition
-                void div.offsetWidth;
-                div.classList.add('active');
+          booksContainer.appendChild(div);
 
-                // Re-initialize Lucide icons
-                lucide.createIcons();
-            });
-        }
+          // Trigger reflow to enable transition
+          void div.offsetWidth;
+          div.classList.add("active");
 
-        function filterBooks() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const filteredBooks = books.filter(book =>
-                book.title.toLowerCase().includes(searchTerm) ||
-                book.author.toLowerCase().includes(searchTerm)
-            );
-            renderBooks(filteredBooks);
-        }
-
-        // Initial render
-        renderBooks(books);
-
-        // Add event listener for search input
-        searchInput.addEventListener('input', filterBooks);
-
-        // Activate initial fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.classList.add('active');
+          // Re-initialize Lucide icons
+          lucide.createIcons();
         });
+      }
 
-        // Simulate delay for book items
-        booksContainer.childNodes.forEach((child, index) => {
-            setTimeout(() => {
-                child.classList.add('active');
-            }, index * 100);
-        });
+      function filterBooks() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredBooks = books.filter(
+          (book) =>
+            book.title.toLowerCase().includes(searchTerm) ||
+            book.author.toLowerCase().includes(searchTerm)
+        );
+        renderBooks(filteredBooks);
+      }
+
+      // Initial render
+      renderBooks(books);
+
+      // Add event listener for search input
+      searchInput.addEventListener("input", filterBooks);
+
+      // Activate initial fade-in elements
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        el.classList.add("active");
+      });
+
+      // Simulate delay for book items
+      booksContainer.childNodes.forEach((child, index) => {
+        setTimeout(() => {
+          child.classList.add("active");
+        }, index * 100);
+      });
     </script>
-</body>
+  </body>
 </html>
